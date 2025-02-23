@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Search</title>
+  <link rel="stylesheet" href="flight.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hotel_search.html">Hotel Search</a></li>
+        <li><a href="login.html">Login / Sign Up</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="search">
+    <h2>Find Flights</h2>
+    <form id="flight-search-form">
+
+      <!-- Origin Section -->
+      <label for="origin_region">Origin Region <i class="fas fa-globe"></i></label>
+      <select id="origin_region" name="origin">
+        <option value="">Select Origin Region</option>
+      </select>
+
+      <label for="origin_airport">Origin Airport <i class="fas fa-plane-departure"></i></label>
+      <select id="origin_airport" name="origin_airport" disabled>
+        <option value="">Select Origin Airport</option>
+      </select>
+
+      <!-- Destination Section -->
+      <label for="destination_region">Destination Region <i class="fas fa-globe"></i></label>
+      <select id="destination_region" name="destination">
+        <option value="">Select Destination Region</option>
+      </select>
+
+      <label for="destination_airport">Destination Airport <i class="fas fa-plane-arrival"></i></label>
+      <select id="destination_airport" name="destination_airport" disabled>
+        <option value="">Select Destination Airport</option>
+      </select>
+
+      <!-- Date and Passenger Info -->
+      <label for="departure-date">Departure Date <i class="fas fa-calendar-alt"></i></label>
+      <input type="date" id="departure-date" name="dep_date" required>
+
+      <label for="return-date">Return Date (optional) <i class="fas fa-calendar-alt"></i></label>
+      <input type="date" id="return-date" name="ret_date">
+
+      <label for="passengers">Passengers <i class="fas fa-user-friends"></i></label>
+      <input type="number" id="passengers" min="1" value="1" name="pass_number" required>
+
+      <button type="submit" class="btn">Search Flights</button>
+    </form>
+  </section>
+
+  <!-- Suggestions Table -->
+  <section class="suggestions">
+    <h2>Suggested Flights</h2>
+    <table id="suggestions-table">
+      <thead>
+        <tr>
+          <th>Flight</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Departure</th>
+          <th>Return</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Flight and Hotel Comparison Tool</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const originRegion = document.getElementById('origin_region');
+      const originAirport = document.getElementById('origin_airport');
+      const destinationRegion = document.getElementById('destination_region');
+      const destinationAirport = document.getElementById('destination_airport');
+
+      // Fetch Regions for Both Origin and Destination
+      async function loadRegions() {
+        try {
+          const response = await fetch('/regions/get-regions');
+          const data = await response.json();
+
+          data.regions.forEach(region => {
+            const option1 = new Option(region.region_name, region.region_id);
+            const option2 = new Option(region.region_name, region.region_id);
+            originRegion.appendChild(option1);
+            destinationRegion.appendChild(option2);
+          });
+        } catch (error) {
+          console.error('Error fetching regions:', error);
+        }
+      }
+
+      // Fetch Airports Based on Selected Region
+      async function loadAirports(regionId, airportSelect) {
+        try {
+          const response = await fetch(`/airport/get-airport?region_id=${regionId}`);
+          const data = await response.json();
+          
+          airportSelect.innerHTML = '<option value="">Select Airport</option>';
+          airportSelect.disabled = false;
+
+          data.airport.forEach(airport => {
+            const option = new Option(`${airport.airport_name} (${airport.airport_iata})`, airport.airport_iata);
+            airportSelect.appendChild(option);
+          });
+        } catch (error) {
+          console.error('Error fetching airports:', error);
+        }
+      }
+
+      async function loadAirlines(){
+        const response = await fetch('/airlines/getAirlines', {
+          method:'GET',
+          headers :{
+            'Content-Type': 'application/json',
+          }
+        })
+
+      }
+
+
+      // Event Listeners for Region Changes
+      originRegion.addEventListener('change', () => {
+        const regionId = originRegion.value;
+        if (regionId) {
+          loadAirports(regionId, originAirport);
+        } else {
+          originAirport.innerHTML = '<option value="">Select Origin Airport</option>';
+          originAirport.disabled = true;
+        }
+      });
+
+      destinationRegion.addEventListener('change', () => {
+        const regionId = destinationRegion.value;
+        if (regionId) {
+          loadAirports(regionId, destinationAirport);
+        } else {
+          destinationAirport.innerHTML = '<option value="">Select Destination Airport</option>';
+          destinationAirport.disabled = true;
+        }
+      });
+
+      // Add this in your flight-search-form submission handler
+document.getElementById('flight-search-form').addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const formData = new FormData(event.target);
+  const data  = Object.fromEntries(formData.entries());
+  console.log(data);
+
+
+
+  let suggestions = [];
+
+  for (let i = 1; i<3; i++) {
+    suggestions.push({id:i, flight:`PK10${i}`, from:`${data.origin_airport}`, to:`${data.destination_airport}`,departure:`${data.dep_date}`, return: `${data.ret_date}`, price: `${500*i}`})
+  }
+
+  const tableBody = document.querySelector('#suggestions-table tbody');
+  tableBody.innerHTML = '';
+
+  suggestions.forEach(suggestion => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${suggestion.flight}</td>
+      <td>${suggestion.from}</td>
+      <td>${suggestion.to}</td>
+      <td>${suggestion.departure}</td>
+      <td>${suggestion.return}</td>
+      <td>${suggestion.price}</td>
+      <td><button class="select-flight" data-id="${suggestion.id}">Select</button></td>
+    `;
+    tableBody.appendChild(row);
+  });
+
+  // Add event listeners to the Select buttons
+  document.querySelectorAll('.select-flight').forEach(button => {
+    button.addEventListener('click', function () {
+      const selectedId = parseInt(this.getAttribute('data-id'));
+      const selectedFlight = suggestions.find(flight => flight.id === selectedId);
+
+      // Save the selected flight to sessionStorage
+      sessionStorage.setItem('selectedFlight', JSON.stringify(selectedFlight));
+
+      // Redirect to the hotel search page
+      window.location.href = 'hotel_search.html';
+    });
+  });
+});
+
+
+      // Initial Load
+      loadRegions();
+    });
+  </script>
+</body>
+</html>

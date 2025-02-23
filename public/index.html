@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight and Hotel Comparison Tool</title>
+  <link rel="stylesheet" href="index.css">
+
+</head>
+<body>
+
+  <header>
+    <div class="logo">Jet & Nest</div>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <nav id="menu" class="menu">
+      <a href="index.html">Home</a>
+      <a href="flight_search.html">Flight Search</a>
+      <a href="hotel_search3.html">Hotel Search</a>
+      <a href="login.html">Login / Sign Up</a>
+      <a href="faq.html">FAQs</a>
+    </nav>
+  </header>
+  
+  
+
+<section class="hero">
+  <h1>Welcome to the Jet  & Nest</h1>
+  <p>Compare and book the best flights and hotels for your next trip!</p>
+  <a href="flight_search.html" class="btn">Find Flights</a>
+  <a href="hotel_search3.html" class="btn">Find Hotels</a>
+  <div id="suggestions"></div>
+</section>
+
+<!-- Dashboard Section -->
+<section class="dashboard">
+  <div class="card">
+    <img src="flight.jpg" alt="Flight Image">
+    <h3>Flight Booking</h3>
+    <p>Book flights from top airlines at the best prices. Choose your ideal flight and get exclusive deals!</p>
+  </div>
+  <div class="card">
+    <img src="hotel.jpg" alt="Hotel Image">
+    <h3>Hotel Booking</h3>
+    <p>Find hotels with great amenities and stay in comfort. Book your next accommodation hassle-free!</p>
+  </div>
+  <div class="card">
+    <img src="support.jpg" alt="Support Image">
+    <h3>Customer Support</h3>
+    <p>Get 24/7 support for all your booking and travel queries. We're here to help!</p>
+  </div>
+</section> 
+
+<!-- Contact Icons -->
+<section class="contact-icons">
+  <a href="mailto:support@travelcompare.com" title="Email">
+    <i class="fas fa-envelope"></i>
+  </a>
+  <a href="https://www.instagram.com" target="_blank" title="Instagram">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a href="https://wa.me/1234567890" target="_blank" title="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+</section>
+
+<footer>
+  <p>&copy; 2024 Jet & Nest</p>
+</footer>
+
+<script>
+  // Function to toggle the menu visibility
+  function toggleMenu() {
+    var menu = document.getElementById('menu');
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  }
+
+  // Function to show suggestions dynamically
+  function showSuggestions() {
+    const searchInput = document.getElementById('searchInput').value;
+    const suggestionsDiv = document.getElementById('suggestions');
+    if (searchInput.length > 2) {
+      suggestionsDiv.innerHTML = `<p>Suggestions for "${searchInput}"</p>`;
+    } else {
+      suggestionsDiv.innerHTML = "";
+    }
+  }
+
+  // Optional: To add event listener to search input for suggestions display
+  document.getElementById('searchInput').addEventListener('keyup', showSuggestions);
+</script>
+
+</body>
+</html>

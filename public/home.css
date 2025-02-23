@@ -1,0 +1,227 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    background-image: url('images.png'); /* Flight background image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+ /* Header styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(51, 51, 51, 0.8);  /* Dark, slightly transparent background */
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  /* Logo styling */
+  header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  /* Menu icon (hamburger) styling */
+  header .menu-icon {
+    font-size: 30px;  /* Size of the hamburger icon */
+    cursor: pointer;  /* Pointer cursor on hover */
+  }
+  
+  /* Navigation menu styling */
+  nav {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  nav a {
+    color: white;
+    margin-right: 20px;
+    text-decoration: none;
+  }
+  
+  /* Menu for small screens (hidden by default) */
+  .menu {
+    display: none;  /* Hide the menu by default on small screens */
+    position: absolute;  /* Position the menu in the top right corner */
+    top: 50px;
+    right: 20px;
+    background-color: #333;  /* Dark background for the menu */
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Styling links in the dropdown menu */
+  .menu a {
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .menu a:hover {
+    background-color: #555;  /* Change background color on hover */
+  }
+  
+  /* For small screens */
+  @media (max-width: 768px) {
+    .menu {
+      display: none;  /* Hide the menu initially */
+      position: absolute;
+      top: 50px;
+      right: 20px;
+      background-color: #333;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  
+    .menu-icon {
+      display: block;  /* Show the hamburger icon */
+      cursor: pointer;
+    }
+  
+    /* When the menu is shown */
+    .menu.show {
+      display: block;  /* Show the menu when the 'show' class is added */
+    }
+  
+    nav {
+      display: none;  /* Hide the menu items on larger screens */
+    }
+  }
+  
+
+  nav ul {
+    list-style: none;
+    display: flex;
+  }
+
+  nav ul li {
+    margin-right: 20px;
+  }
+
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  nav ul li a:hover {
+    text-decoration: underline;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .menu a {
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+  }
+
+  .menu a:hover {
+    background-color: #555;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 50px;
+    background-color: rgba(76, 175, 80, 0.7);
+    color: white;
+  }
+
+  .hero h1 {
+    font-size: 3em;
+  }
+
+  .hero .btn {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 5px;
+  }
+
+  .hero .btn:hover {
+    background-color: #555;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+  }
+
+  /* Suggestions list style */
+  #suggestions {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+
+  /* Dashboard Layout */
+  .dashboard {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+
+  .dashboard .card {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 30%;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  .dashboard .card img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+
+  .dashboard .card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
+  .dashboard .card p {
+    font-size: 1em;
+    color: #555;
+  }
+
+  /* Contact icons */
+  .contact-icons {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .contact-icons a {
+    color: #fff;
+    margin: 0 10px;
+    font-size: 24px;
+  }
+
+  .contact-icons a:hover {
+    color: #ff6347;
+  }

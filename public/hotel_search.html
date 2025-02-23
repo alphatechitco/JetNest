@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Search</title>
+  <link rel="stylesheet" href="hotel.css">
+  <link rel="stylesheet" href="hotel.js">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="flight_search.html">Flight Search</a></li>
+        <li><a href="login.html">Login / Sign Up</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="search">
+    <h2>Find Hotels</h2>
+    <form id="hotel-search-form" onsubmit="return showSuggestions(event)">
+      <label for="destination">Destination</label>
+      <input type="text" id="destination" placeholder="City or location" required>
+
+      <label for="check-in">Check-in Date</label>
+      <input type="date" id="check-in" required>
+
+      <label for="check-out">Check-out Date</label>
+      <input type="date" id="check-out" required>
+
+      <label for="guests">Number of Guests</label>
+      <input type="number" id="guests" min="1" required>
+
+      <button type="submit" class="btn">Search Hotels</button>
+    </form>
+  </section>
+
+  <!-- Hotel Suggestions -->
+  <section class="suggestions" id="suggestions" style="display: none;">
+    <h2>Suggested Hotels</h2>
+    <ul id="hotel-list">
+      <!-- Suggestions will appear here -->
+    </ul>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Flight and Hotel Comparison Tool</p>
+  </footer>
+
+</body>
+</html>
